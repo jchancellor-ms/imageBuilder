@@ -1,0 +1,16 @@
+on: [push]
+
+name: Create Custom VM Image
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2  
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.IMAGE_BUILDER_SERVICE_PRINCIPAL }}'
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v2
